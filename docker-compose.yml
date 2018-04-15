@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  iassettechnicaltestcore:
+    image: iassettechnicaltestcore
+    build:
+      context: .
+      dockerfile: iAssetTechnicalTestCore/Dockerfile

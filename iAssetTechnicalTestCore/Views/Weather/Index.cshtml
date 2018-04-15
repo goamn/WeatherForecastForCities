@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Weather";
+}
+
+@section scripts {
+    <script src="~/js/Weather.Logic.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/loadingoverlay.min.js" asp-append-version="true"></script>
+}
+
+<div class="container">
+    <div class="py-5 text jumbotron text-center">
+        <h1>Weather forecast</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label>Country:</label>
+            <select data-bind="value: country" class="form-control" id="countryDropdown" value="">
+                @Html.Partial("_CountryList")
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Region:</label>
+            <select data-bind="value: region, optionsCaption: 'Please select a region', options: regionsList" class="form-control" id="regionDropdown" value=""></select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>City:</label>
+            <select data-bind="value: city, optionsCaption: 'Please select a city', options: citiesList" class="form-control" id="cityDropdown" value=""></select>
+        </div>
+    </div>
+
+    <div data-bind="visible: forecastLoaded, with: WeatherForecast">
+        <div class="py-5 text">
+            <h2 data-bind="text: 'Forecast for ' + $root.city() + ': ' + weatherMain()"></h2>
+            <h4 data-bind="text: weatherDesc()"></h4>
+            <img data-bind="if: weatherIcon(), attr: {src: 'http://openweathermap.org/img/w/' + weatherIcon() + '.png'}" />
+            <!-- ko if: LocalTime -->
+            <h5 data-bind="text: 'Local Time: ' + LocalTime()"></h5>
+            <!-- /ko -->
+        </div>
+        <div class="row" data-bind="">
+            <div class="col-md-4 mb-3">
+                <label>Longitude:</label>
+                <span data-bind="text: long"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Latitude:</label>
+                <span data-bind="text: lati"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Temperature (Celsius):</label>
+                <span data-bind="text: temp"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Humidity (%):</label>
+                <span data-bind="text: humidity"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Pressure (hPa):</label>
+                <span data-bind="text: pressure"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Visibility (km):</label>
+                <span data-bind="text: visibility"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Wind Speed (km/h):</label>
+                <span data-bind="text: windSpeed"></span>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>Wind Direction (degrees):</label>
+                <span data-bind="text: windDirection"></span>
+            </div>
+        </div>
+    </div>
+
+    <div data-bind="visible: errorMessage">
+        <div class="py-5 text">
+            <h2>Error occured:</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <span data-bind="text: errorMessage"></span>
+            </div>
+        </div>
+    </div>
+</div>
